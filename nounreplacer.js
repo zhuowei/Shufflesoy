@@ -7,10 +7,15 @@ var wordsForReplacementUncountable = ["soy", "tofu"];
 
 var exclusionSet;
 
+var doNotExcludeVerbs = process.env.DO_NOT_EXCLUDE_VERBS == "true";
+
+var DEBUG=process.env.DEBUG == "true";
+
 function readDicts(path) {
 	console.log("Read dicts");
 	readExclusionList(".");
 	var filelist = fs.readdirSync(path);
+	if (DEBUG) console.log(filelist);
 	for (var i = 0; i < filelist.length; i++) {
 		var filename = filelist[i];
 		if (filename.indexOf("words.v") == 0) {
@@ -26,6 +31,7 @@ function readDicts(path) {
 }
 
 function readDict(path, name, excludeMode) {
+	if (doNotExcludeVerbs && excludeMode) return;
 	var contents = fs.readFileSync(path + "/" + name, {
 		"encoding": "utf8"
 	});
@@ -34,7 +40,7 @@ function readDict(path, name, excludeMode) {
 	if (excludeMode) endWords = exclusionSet;
 	for (var i = 0; i < words.length; i++) {
 		var word = words[i].substring(0, words[i].lastIndexOf("."));
-		if (!exclusionSet.has(word)) {
+		if ((word.length > 5 && doNotExcludeVerbs) || !exclusionSet.has(word)) {
 			endWords.add(word);
 		}
 	}
@@ -94,7 +100,7 @@ function generateReplacement(dict, orig) {
 	return word;
 }
 
-readDicts("en");
+readDicts("en/words");
 
 //var n = deNoun("I am a weatherproof balloon, specially made for John McCain's use as an agricultural specimen. I hate spiders?! You hate spiders and me.");
 

@@ -5,6 +5,8 @@ var Twitter = require("ntwitter");
 const FOLLOW_USER_NAME = "Shufflejoy";
 //const FOLLOW_USER_NAME = "zhuowei";
 
+var DEBUG = process.env.DEBUG == "true";
+
 var twitter = new Twitter({
 	consumer_key: process.env.CONSUMER_KEY,
 	consumer_secret: process.env.CONSUMER_SECRET,
@@ -48,18 +50,28 @@ function attemptReconnect() {
 }
 
 function streamHandler(data) {
-	//console.log(data);
 	//grab the message from the data
-	if (!data.text || !data.user) return;
+	if (!data.text || !data.user) {
+		console.log(data);
+		return;
+	}
 	var tweetMsg = data.text;
 	var userId = data.user.id_str;
 	if (userId != followUserId) return; //filter out retweets/replies
+	if (DEBUG) console.log(data);
 	var userMentions = data.entities.user_mentions;
 	var urls = data.entities.urls;
-	if (userMentions.length > 0 || urls.length > 0) {
-		if (Math.random() < 0.8) return;
-	}
 	var soyMsg = nounReplacer.deNoun(tweetMsg);
-	if (soyMsg == tweetMsg) return;
-	twitter.updateStatus(soyMsg, function(err, data){});
+	if (soyMsg == tweetMsg) {
+		if (DEBUG) console.log("No substitutions made");
+		return;
+	}
+	if (userMentions.length > 0 || urls.length > 0) {
+		if (Math.random() < 0.5) return;
+	}
+	var opts = {};
+	if (data.in_reply_to_status_id_str) {
+		opts["in_reply_to_status_id"] = data["in_reply_to_status_id_str"];
+	}
+	twitter.updateStatus(soyMsg, opts, function(err, data){});
 }
