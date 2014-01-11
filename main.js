@@ -50,6 +50,7 @@ function attemptReconnect() {
 function streamHandler(data) {
 	//console.log(data);
 	//grab the message from the data
+	if (!data.text || !data.user) return;
 	var tweetMsg = data.text;
 	var userId = data.user.id_str;
 	if (userId != followUserId) return; //filter out retweets/replies
