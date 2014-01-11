@@ -8,6 +8,7 @@ var wordsForReplacementUncountable = ["soy", "tofu"];
 var exclusionSet;
 
 function readDicts(path) {
+	console.log("Read dicts");
 	readExclusionList(".");
 	var filelist = fs.readdirSync(path);
 	for (var i = 0; i < filelist.length; i++) {
@@ -97,8 +98,10 @@ readDicts("/usr/share/link-grammar/en/words");
 
 //var n = deNoun("I am a weatherproof balloon, specially made for John McCain's use as an agricultural specimen. I hate spiders?! You hate spiders and me.");
 
-var n = deNoun(fs.readFileSync("in.txt", {
+/*var n = deNoun(fs.readFileSync("in.txt", {
 	"encoding": "utf8"
 	}));
 
-console.log(n);
+console.log(n);*/
+
+exports.deNoun = deNoun;
