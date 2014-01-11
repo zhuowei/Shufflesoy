@@ -1,6 +1,8 @@
-A parody of the Twitter account @Shufflejoy. Replaces all nouns in a sentence with soy-related words. The plan is to have the program tweet them out.
+A parody of the Twitter account @Shufflejoy. Replaces all nouns in a sentence with soy-related words. A Heroku app then watches @Shufflejoy's account, does teh replacement, and tweets the results out on @Shufflesoy.
 
-This requires the dictionary of the Link Grammar library to be installed.\
+Uses Node.js (running in --harmony mode), nTwitter, and the dictionaries from Link Grammar.
+
+The files inside the en directory is taken from Link Grammar, which is licensed under the GNU GPL. If this breaks any licenses, feel free to yell at me.
 
 in.txt is taken from http://press.arts-eclectic.com/shufflejoy-origins/
 

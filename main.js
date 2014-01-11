@@ -48,7 +48,7 @@ function attemptReconnect() {
 }
 
 function streamHandler(data) {
-	console.log(data);
+	//console.log(data);
 	//grab the message from the data
 	var tweetMsg = data.text;
 	var userId = data.user.id_str;
