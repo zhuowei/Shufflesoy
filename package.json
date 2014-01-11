@@ -1,0 +1,20 @@
+{
+  "name": "shufflesoy",
+  "version": "1.0.0",
+  "description": "Parody bot that replaces nouns with soybean-related words",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zhuowei/Shufflesoy.git"
+  },
+  "author": "Zhuowei Zhang",
+  "license": "CC0",
+  "gitHead": "8508c7ac18ed683a76e151eee037376a4c14a9e3",
+  "readmeFilename": "README.md",
+  "dependencies": {
+    "ntwitter": "~0.5.0"
+  }
+}

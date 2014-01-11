@@ -51,10 +51,12 @@ function streamHandler(data) {
 	console.log(data);
 	//grab the message from the data
 	var tweetMsg = data.text;
+	var userId = data.user.id_str;
+	if (userId != followUserId) return; //filter out retweets/replies
 	var userMentions = data.entities.user_mentions;
 	var urls = data.entities.urls;
 	if (userMentions.length > 0 || urls.length > 0) {
-		return;
+		if (Math.random() < 0.8) return;
 	}
 	var soyMsg = nounReplacer.deNoun(tweetMsg);
 	if (soyMsg == tweetMsg) return;

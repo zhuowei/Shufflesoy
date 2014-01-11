@@ -94,7 +94,7 @@ function generateReplacement(dict, orig) {
 	return word;
 }
 
-readDicts("/usr/share/link-grammar/en/words");
+readDicts("en");
 
 //var n = deNoun("I am a weatherproof balloon, specially made for John McCain's use as an agricultural specimen. I hate spiders?! You hate spiders and me.");
 
